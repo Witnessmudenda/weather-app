@@ -1,13 +1,23 @@
-function HourlyForecast({ unit }) {
-  const hours = [
-    { time: "09:00", temp: 28 },
-    { time: "12:00", temp: 30 },
-    { time: "15:00", temp: 31 },
-    { time: "18:00", temp: 29 },
-    { time: "21:00", temp: 26 },
-    { time: "00:00", temp: 24 },
-    { time: "03:00", temp: 23 },
+function HourlyForecast({ unit, city }) {
+  const hourlyData = {
+    Ndola: [28, 30, 31, 29, 26, 24, 23],
+    Lusaka: [27, 29, 30, 28, 25, 23, 22],
+    Kitwe: [26, 28, 29, 27, 24, 22, 21],
+    Livingstone: [31, 34, 35, 33, 30, 28, 27],
+  };
+
+  const times = [
+    "09:00",
+    "12:00",
+    "15:00",
+    "18:00",
+    "21:00",
+    "00:00",
+    "03:00",
   ];
+
+  const temperatures =
+    hourlyData[city] || hourlyData["Ndola"];
 
   const convertTemp = (temp) =>
     unit === "C"
@@ -16,11 +26,11 @@ function HourlyForecast({ unit }) {
 
   return (
     <div className="hourly-cards">
-      {hours.map((hour, index) => (
+      {times.map((time, index) => (
         <div key={index} className="hour-card">
-          <h3>{hour.time}</h3>
+          <h3>{time}</h3>
           <p>
-            {convertTemp(hour.temp)}°{unit}
+            {convertTemp(temperatures[index])}°{unit}
           </p>
         </div>
       ))}

@@ -1,59 +1,56 @@
-function CurrentWeather({ unit, city }) {
-  const weatherData = {
-    "Ndola": {
-      temp: 28,
-      high: 30,
-      low: 22,
-      condition: "Sunny",
-      wind: 12,
-    },
-    "Lusaka": {
-      temp: 27,
-      high: 29,
-      low: 21,
-      condition: "Partly Cloudy",
-      wind: 10,
-    },
-    "Kitwe": {
-      temp: 26,
-      high: 28,
-      low: 20,
-      condition: "Cloudy",
-      wind: 8,
-    },
-    "Livingstone": {
-      temp: 31,
-      high: 34,
-      low: 25,
-      condition: "Hot",
-      wind: 15,
-    },
-  };
+import { formatTemp, formatWindSpeed } from "../utils/temperature";
+import { formatCityDateTime } from "../utils/forecast";
 
-  const cityName = city.replace(", ZM", "").trim();
+const ICON_BASE = "https://openweathermap.org" + "/img/wn/";
 
-  const data = weatherData[cityName] || weatherData["Ndola"];
+function CurrentWeather({ unit, location, data, todayHighC, todayLowC }) {
+  if (!data) return null;
 
-  const convertTemp = (temp) =>
-    unit === "C"
-      ? temp
-      : Math.round((temp * 9) / 5 + 32);
+  const cityName = location?.name || data.name;
+  const country = location?.country || data.sys?.country || "";
+  const state = location?.state ? `, ${location.state}` : "";
+
+  const weatherInfo = data.weather?.[0] || {};
+  const description = weatherInfo.description
+    ? weatherInfo.description.charAt(0).toUpperCase() +
+      weatherInfo.description.slice(1)
+    : "Unavailable";
+
+  const iconUrl = weatherInfo.icon
+    ? `${ICON_BASE}${weatherInfo.icon}@2x.png`
+    : null;
+
+  const localDateTime = formatCityDateTime(data.dt, data.timezone ?? 0);
 
   return (
     <div className="current-weather">
-      <h2>{city}, Zambia</h2>
+      <h2>
+        {cityName}
+        {state}
+        {country ? `, ${country}` : ""}
+      </h2>
+
+      <p className="local-time">{localDateTime}</p>
+
+      {iconUrl && (
+        <img
+          src={iconUrl}
+          alt={description}
+          className="weather-icon"
+        />
+      )}
 
       <div className="temperature">
-        {convertTemp(data.temp)}°{unit}
+        {formatTemp(data.main?.temp, unit)}
       </div>
 
-      <p>{data.condition}</p>
+      <p>{description}</p>
 
-      <p>Wind: {data.wind} km/h</p>
+      <p>Wind: {formatWindSpeed(data.wind?.speed, unit)}</p>
 
       <p>
-        High: {convertTemp(data.high)}°{unit} |
-        Low: {convertTemp(data.low)}°{unit}
+        High: {formatTemp(todayHighC, unit)} | Low:{" "}
+        {formatTemp(todayLowC, unit)}
       </p>
     </div>
   );

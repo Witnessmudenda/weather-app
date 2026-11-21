@@ -1,29 +1,28 @@
-function DailyForecast({ unit }) {
-  const forecast = [
-    { day: "Mon", high: 30, low: 22 },
-    { day: "Tue", high: 31, low: 23 },
-    { day: "Wed", high: 29, low: 21 },
-    { day: "Thu", high: 28, low: 20 },
-    { day: "Fri", high: 30, low: 22 },
-  ];
+import { formatTemp } from "../utils/temperature";
 
-  const convertTemp = (temp) =>
-    unit === "C"
-      ? temp
-      : Math.round((temp * 9) / 5 + 32);
+function HourlyForecast({ unit, hourly = [] }) {
+  if (!hourly.length) {
+    return <p>Hourly forecast unavailable.</p>;
+  }
 
   return (
-    <div className="daily-cards">
-      {forecast.map((item, index) => (
-        <div key={index} className="day-card">
-          <h3>{item.day}</h3>
-          <p>
-            {convertTemp(item.high)}° / {convertTemp(item.low)}°{unit}
-          </p>
+    <div className="hourly-cards">
+      {hourly.map((item) => (
+        <div key={item.dt} className="hour-card">
+          {item.dateLabel && (
+            <span className="date-badge">{item.dateLabel}</span>
+          )}
+          <h3>{item.time}</h3>
+          <img
+            src={`https://openweathermap.org{item.icon}.png`}
+            alt={item.status}
+          />
+          <p className="status-text">{item.status}</p>
+          <p>{formatTemp(item.tempC, unit)}</p>
         </div>
       ))}
     </div>
   );
 }
 
-export default DailyForecast;
+export default HourlyForecast;
