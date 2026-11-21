@@ -1,122 +1,68 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div className="app">
+      <header className="header">
+        <h1>Weather App</h1>
+
+        <div className="search-section">
+          <input type="text" placeholder="Search city..." />
+          <button>Search</button>
+
+          <div className="unit-toggle">
+            <button>°C</button>
+            <button>°F</button>
+          </div>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
+      </header>
+
+      <section className="current-weather">
+        <h2>Ndola, Zambia</h2>
+        <h1>28°C</h1>
+        <p>Sunny</p>
+        <p>Wind: 12 km/h</p>
+        <p>High: 30°C | Low: 22°C</p>
       </section>
 
-      <div className="ticks"></div>
+      <section className="hourly-forecast">
+        <h2>Next 24 Hours</h2>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
+        <div className="hourly-cards">
+          <div className="card">09:00 • 28°C</div>
+          <div className="card">12:00 • 30°C</div>
+          <div className="card">15:00 • 31°C</div>
+          <div className="card">18:00 • 29°C</div>
+          <div className="card">21:00 • 26°C</div>
+          <div className="card">00:00 • 24°C</div>
+          <div className="card">03:00 • 23°C</div>
+          <div className="card">06:00 • 24°C</div>
         </div>
       </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      <section className="daily-forecast">
+        <h2>5 Day Forecast</h2>
+
+        <div className="days">
+          <div className="card">Mon 30° / 22°</div>
+          <div className="card">Tue 31° / 23°</div>
+          <div className="card">Wed 29° / 21°</div>
+          <div className="card">Thu 28° / 20°</div>
+          <div className="card">Fri 30° / 22°</div>
+        </div>
+      </section>
+
+      <section className="other-cities">
+        <h2>Other Cities</h2>
+
+        <div className="cities">
+          <div className="card">Lusaka 27°C</div>
+          <div className="card">London 14°C</div>
+          <div className="card">New York 18°C</div>
+        </div>
+      </section>
+    </div>
+  );
 }
 
-export default App
+export default App;
