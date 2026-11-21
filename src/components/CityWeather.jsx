@@ -1,7 +1,9 @@
 import { formatTemp } from "../utils/temperature";
 
+const ICON_BASE = "https://openweathermap.org" + "/img/wn/";
+
 function CityWeather({ unit, cities = [] }) {
-  if (!cities.length) {
+  if (!cities || !cities.length) {
     return <p>Loading city summaries...</p>;
   }
 
@@ -15,7 +17,7 @@ function CityWeather({ unit, cities = [] }) {
         const weatherInfo = item.currentData?.weather?.[0] || {};
         const status = weatherInfo.main || "Unavailable";
         const iconUrl = weatherInfo.icon
-          ? `https://openweathermap.org{weatherInfo.icon}.png`
+          ? `${ICON_BASE}${weatherInfo.icon}.png`
           : null;
 
         return (
