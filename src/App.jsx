@@ -1,4 +1,5 @@
 import "./App.css";
+import CurrentWeather from "./components/CurrentWeather";
 
 function App() {
   return (
@@ -7,7 +8,11 @@ function App() {
         <h1>Weather App</h1>
 
         <div className="search-section">
-          <input type="text" placeholder="Search city..." />
+          <input
+            type="text"
+            placeholder="Search city..."
+          />
+
           <button>Search</button>
 
           <div className="unit-toggle">
@@ -17,13 +22,7 @@ function App() {
         </div>
       </header>
 
-      <section className="current-weather">
-        <h2>Ndola, Zambia</h2>
-        <h1>28°C</h1>
-        <p>Sunny</p>
-        <p>Wind: 12 km/h</p>
-        <p>High: 30°C | Low: 22°C</p>
-      </section>
+      <CurrentWeather />
 
       <section className="hourly-forecast">
         <h2>Next 24 Hours</h2>
