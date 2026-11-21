@@ -1,12 +1,32 @@
-function CurrentWeather() {
+function CurrentWeather({ unit }) {
+  const tempC = 28;
+  const highC = 30;
+  const lowC = 22;
+  const windSpeed = 12;
+
+  const convertTemp = (temp) => {
+    return unit === "C"
+      ? temp
+      : Math.round((temp * 9) / 5 + 32);
+  };
+
   return (
-    <section className="current-weather">
+    <div className="current-weather">
       <h2>Ndola, Zambia</h2>
-      <h1>28°C</h1>
+
+      <div className="temperature">
+        {convertTemp(tempC)}°{unit}
+      </div>
+
       <p>Sunny</p>
-      <p>Wind: 12 km/h</p>
-      <p>High: 30°C | Low: 22°C</p>
-    </section>
+
+      <p>Wind: {windSpeed} km/h</p>
+
+      <p>
+        High: {convertTemp(highC)}°{unit} | Low:{" "}
+        {convertTemp(lowC)}°{unit}
+      </p>
+    </div>
   );
 }
 
