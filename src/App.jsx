@@ -8,6 +8,7 @@ import CityWeather from "./components/CityWeather";
 
 function App() {
   const [unit, setUnit] = useState("C");
+  const [city, setCity] = useState("Ndola");
 
   return (
     <div className="app">
@@ -18,6 +19,8 @@ function App() {
           <input
             type="text"
             placeholder="Search city..."
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
           />
 
           <button>Search</button>
@@ -40,7 +43,10 @@ function App() {
         </div>
       </header>
 
-      <CurrentWeather unit={unit} />
+      <CurrentWeather
+        unit={unit}
+        city={city}
+      />
 
       <section className="hourly-forecast">
         <h2>Next 24 Hours</h2>
